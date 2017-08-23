@@ -74,8 +74,9 @@ function isNan(){
 }
 
 function evaluate(top, bottom) {
-	// var topR = parseInt(topRange.value);
-	// var bottomR = parseInt(bottomRange.value);
+	var topR = parseInt(topRange.value);
+	var bottomR = parseInt(bottomRange.value);
+	var random = Math.floor(Math.random() * topR) + 1;
 	if (random < bottomR){
 		random = bottomR + 1;
 	}
