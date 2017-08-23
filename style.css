@@ -1,0 +1,75 @@
+* {
+	font-family: 'Open Sans', sans-serif;
+	text-align: center;
+}
+
+h1 {
+	color: #ed458b;
+	padding: 15px; 
+}
+
+span {
+	color: #e6e7e8;
+	font-weight: 100;
+}
+
+.header {
+	background-color: #404041;
+}
+
+button {
+  background-color: #929497;
+  color: #fff;
+  border-radius: 100px;
+}
+
+button:hover {
+	cursor: pointer;
+	background-color: #eb008b;
+}
+
+button:disabled {
+	background-color: #d0d2d3;
+}
+
+.bottomRange:default {
+	0
+}
+
+.range {
+	width: 100px;
+	display: inline-block;
+}
+
+.number {
+	color: #eb008b;
+	font-size: 180px;
+	font-weight: 100;
+	margin: -50px;
+}
+
+.guessBox {
+	width: 250px;
+	margin-bottom: 20px;
+	height: 20px;
+	text-align: left;
+	font-size: 20px;
+	font-weight: 100;
+}
+.guessBox::placeholder {
+    color: #d0d2d3;
+}
+
+.guessButton, .clearButton {
+	width: 125px;
+	margin-bottom: 30px;
+	font-size: 18px;
+	font-weight: 100;
+}
+
+.resetButton {
+	width: 250px;
+    margin-top: 25px;
+    font-weight: 100;
+    font-size: 15px;
+}
