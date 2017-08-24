@@ -1,63 +1,36 @@
-var guessBox = document.querySelector('.guessBox');
-var guessButton = document.querySelector('.guessButton');
-var clearButton = document.querySelector('.clearButton');
-var resetButton = document.querySelector('.resetButton');
-var number = document.querySelector('.number');
+var bottomR = 1;
+var bottomRange = document.querySelector('.user-min-input');
+var clearButton = document.querySelector('.clear-button');
 var clue = document.querySelector('.highLow')
-var topRange = document.querySelector('.topRange');
-var bottomRange = document.querySelector('.bottomRange');
+var guessButton = document.querySelector('.guess-button');
+var guessInput = document.querySelector('.guess-input');
+var random = randomNum(100, 1);
+var resetButton = document.querySelector('.reset-button');
+var submitRangeButton = document.querySelector('#submit-range');
+var topRange = document.querySelector('.user-max-input');
+var topR = 100;
+var number = document.querySelector('.number');
 
-// if(gameWon === true){
-// 	topRange = topRange + 10;
-// 	bottomRange = bottomRange - 10;
-// }
+console.log(random)
 
+guessInput.addEventListener('keyup', enable);
 guessButton.addEventListener('click', guess);
+submitRangeButton.addEventListener('click', setRange);
 clearButton.addEventListener('click', clear);
-guessBox.addEventListener('keyup', enable);
 resetButton.addEventListener('click', resetForm);
-topRange.addEventListener('keyup', setRange);
-bottomRange.addEventListener('keyup', setRange);
 
-function randomNum() {
-	var random = Math.floor(Math.random() * topR) + 1;
-}
-
-function setRange() {
-	var topR = parseInt(topRange.value);
-	var bottomR = parseInt(bottomRange.value);
-	//evalute(topR, bottomR)
-}
-
-function inRange() {
-	var topR = parseInt(topRange.value);
-	var bottomR = parseInt(bottomRange.value);
-	var answer = parseInt(guessBox.value);
-  if (answer < bottomR || answer > topR) {
-    alert('Parameter must be between ' + bottomR + ' and ' + topR + '.')
-  } else if (isNaN(topR || bottomR)){
-  	alert('You gots to enter a range yo.')
-  }
-}
-
-function resetForm() {
-    window.location.reload();
-}
 
 function guess() {
-	var answer = parseInt(guessBox.value);
-	number.innerText = answer;
-	evaluate();
+	var userGuess = parseInt(guessInput.value);
+	number.innerText = userGuess;
+	evaluate(userGuess);
 	inRange();
-}
-
-function clear() {
-	guessBox.value = "";
-	guessBox.focus();
+	clear();
+	console.log(random);
 }
 
 function enable() {
-	if (guessBox.value === '') {
+	if (guessInput.value === '') {
 		guessButton.disabled = true;
 		clearButton.disabled = true;
 	} else {
@@ -68,27 +41,53 @@ function enable() {
 }
 
 function isNan(){
-	if (isNaN(guessBox.value)) {
-	alert("Dude, that's not a number yo.")
+	if (isNaN(guessInput.value)) {
+	alert("Dude, that is not a number yo.")
+	clear();
 	} 
 }
 
-function evaluate(top, bottom) {
-	// var topR = parseInt(topRange.value);
-	// var bottomR = parseInt(bottomRange.value);
-	if (random < bottomR){
-		random = bottomR + 1;
+function randomNum(topR, bottomR) {
+	return Math.floor(Math.random() * topR) + 1;
+}
+
+function resetForm() {
+    window.location.reload();
+}
+
+function clear() {
+	guessInput.value = '';
+	guessInput.focus();
+}
+
+
+function setRange() {
+	topR = parseInt(topRange.value);
+	bottomR = parseInt(bottomRange.value);
+	console.log(topR, bottomR);
+	random = randomNum(topR, bottomR);
+}
+
+function inRange() {
+	var topR = parseInt(topRange.value);
+	var bottomR = parseInt(bottomRange.value);
+	var answer = parseInt(guessInput.value);
+    if (answer < bottomR || answer > topR) {
+      alert('Parameter must be between ' + bottomR + ' and ' + topR + '.')
+    } else if (isNaN(topR || bottomR)) {
+  	  alert('You gots to enter a range yo.')
+    }
+}
+
+function evaluate(userGuess) {
+	console.log(bottomR, topR)
+	if (userGuess < random){
+		clue.innerText = 'Too Low!';
+	} else if (userGuess > random){
+		clue.innerText = 'Too High!';
+	} else if (userGuess === random){
+		clue.innerText = 'That is Spot On! \n Top Range +10! \n Bottom Range -10!';
+		random = randomNum(topR += 10, bottomR -= 10);
+		console.log(random);
 	}
-	if (guessBox.value < random){
-		clue.innerText = "Too Low!";
-	} else if (guessBox.value > random){
-		clue.innerText = "Too High!";
-	} else if (guessBox.value == random){
-		clue.innerText = "That's Spot On! Top Range +10! Bottom Range -10!";
-		var newTopR = topRange.innerText + 10;
-		var newBottomR = bottomRange.innerText - 10;
-	}
-	console.log(random);
-	// console.log(newTopR.value);
-	// console.log(newBottomR.value);
 }
